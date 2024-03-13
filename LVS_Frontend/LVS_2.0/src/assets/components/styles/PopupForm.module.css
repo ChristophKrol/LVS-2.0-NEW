@@ -1,0 +1,32 @@
+.backgroundDiv{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* semi-transparent background*/
+        backdrop-filter: blur(5px); /* backdrop filter for blur effect */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+}
+
+.closingButtonArea{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.formDiv{
+        background-color: white;
+          padding: 20px;
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+          width: 800px !important;
+          max-width: 900px;
+
+}
+
+.inputSpan{
+    width: 100%;
+    padding: 5px 5px 5px 5px
+}

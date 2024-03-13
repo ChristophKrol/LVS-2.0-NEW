@@ -120,7 +120,7 @@ function MainDashboard(){
   const warenGruppenValueOptions = {};
 
   return(
-    <>
+    <div style={{padding: "0px 50px 0px 50px"}} >
       <DashboardHeader title="Dashboard" kpiData={main}/>
       
       <div className={styles.diagramDiv}>
@@ -174,7 +174,7 @@ function MainDashboard(){
 
       
     
-    </>
+    </div>
   )
 }
 

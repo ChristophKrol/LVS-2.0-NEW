@@ -23,6 +23,7 @@ import Button from 'react-bootstrap/Button';
 import DashboardHeader from "../assets/components/DashboardHeader";
 import styles from './styles/Wareneingang.module.css';
 import PopupForm from "../assets/components/PopupForm";
+import SidebarMenu from "../assets/components/SidebarMenu";
 
 
 function Wareneingang(){
@@ -80,9 +81,10 @@ function Wareneingang(){
     }
 
     return (
-        <>
+      <>
+        <SidebarMenu/>
+        <div style={{padding: "0px 0px 0px 50px"}}>
             <DashboardHeader title = "Wareneingang" kpiData = {dashboardData}/>
-
             <Container>
               <Row>
                 <Col className="text-center">
@@ -116,7 +118,10 @@ function Wareneingang(){
 
                 </div>
             
-        </>
+        </div>
+
+      </>
+        
         
     );
 }

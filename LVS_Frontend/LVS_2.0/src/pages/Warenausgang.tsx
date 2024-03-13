@@ -23,6 +23,7 @@ import Button from 'react-bootstrap/Button';
 import DashboardHeader from "../assets/components/DashboardHeader";
 import styles from './styles/Warenausgang.module.css';
 import Footer from "../Footer";
+import SidebarMenu from "../assets/components/SidebarMenu";
 
 
 function Warenausgang(){
@@ -87,7 +88,9 @@ function Warenausgang(){
 
 
     return (
-        <>
+      <>
+        <SidebarMenu/>
+        <div style={{padding: "0px 0px 0px 50px"}}>
             <DashboardHeader title = "Warenausgang" kpiData = {dashboardData}/>
 
             <Container>
@@ -132,7 +135,8 @@ function Warenausgang(){
             </div>
             <Footer></Footer>
             
-        </>
+        </div>
+      </>  
         
     );
 

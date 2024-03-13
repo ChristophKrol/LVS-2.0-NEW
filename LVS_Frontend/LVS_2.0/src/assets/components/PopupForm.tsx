@@ -1,4 +1,11 @@
 import React from 'react';
+import {Row, Col} from 'react-bootstrap';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Button from 'react-bootstrap/Button';
+import styles from './styles/PopupForm.module.css';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
 
 const PopupForm = ({ onClose }) => {
   const handleOutsideClick = (e) => {
@@ -8,41 +15,62 @@ const PopupForm = ({ onClose }) => {
   };
 
   return (
-    <div
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)', // semi-transparent background
-        backdropFilter: 'blur(5px)', // backdrop filter for blur effect
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
+    <div className={styles.backgroundDiv}
       onClick={handleOutsideClick}
     >
-      <div
-        style={{
-          backgroundColor: 'white',
-          padding: '20px',
-          borderRadius: '10px',
-          boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
-          maxWidth: '400px',
-        }}
-      >
-        <h2>Popup Form</h2>
+      <div className={styles.formDiv}>
+        <div className={styles.closingButtonArea}> <IconButton onClick={onClose} aria-label="close"> <CloseIcon /> </IconButton> </div>
+        <h2>Neue Ware erfassen</h2>
         <form>
-          <label htmlFor="name">Name:</label>
-          <input type="text" id="name" name="name" />
+          <Row>
+            <Col>
+              <Row>
+              <span className={styles.inputSpan}>
+                <label htmlFor="name">Name:</label>
+                <input type="text" id="name" name="name" />
+              </span>
+              </Row>
+              <Row>
+                <span className={styles.inputSpan}>
+                  <label htmlFor="quantity">Quantität:</label>
+                  <input type="number" id="quantity" name="quantity" />
+                </span>
+              </Row>
+              <Row>
+                <span className={styles.inputSpan}>
+                  <label htmlFor="size">Größe:</label>
+                  <input type="number" id="size" name="size" />
+                </span>
+              </Row>
 
-          <label htmlFor="email">Email:</label>
-          <input type="email" id="email" name="email" />
-
-          <button type="submit">Submit</button>
+            
+            </Col>
+            <Col>
+              <span className={styles.inputSpan}>
+                <DropdownButton id="dropdown-basic-button" title="Kategorie auswählen">
+                    <Dropdown.Item href="#/action-1">Lebensmittel</Dropdown.Item>
+                    <Dropdown.Item href="#/action-2">Elektronik</Dropdown.Item>
+                    <Dropdown.Item href="#/action-3">Kategorie hinzufügen</Dropdown.Item>
+                </DropdownButton>
+              </span>
+              <span className={styles.inputSpan}>
+                <DropdownButton id="dropdown-basic-button" title="Regal auswählen">
+                    <Dropdown.Item href="#/action-1">Regal 1</Dropdown.Item>
+                    <Dropdown.Item href="#/action-2">Regal 2</Dropdown.Item>
+                    <Dropdown.Item href="#/action-3">Regal 3</Dropdown.Item>
+                </DropdownButton>
+              </span>
+              <span className={styles.inputSpan}>
+                <label htmlFor="price">Preis:</label>
+                <input type="number" id="price" name="price" />
+              </span>
+              
+              
+            </Col>
+          </Row>
+          <Button as="input" type="submit" value="Ware hinzufügen" />{' '}
         </form>
-        <button onClick={onClose}>Close</button>
+        
       </div>
     </div>
   );
