@@ -1,6 +1,6 @@
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { Button } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 
 import styles from './styles/Lagerflaechen.module.css';
 
@@ -22,8 +22,10 @@ function Lagerflaechen(){
                         <Button variant="primary"> Mehr </Button>
                     </Card.Body>
                 </Card>
-
             </main>
+            <Container fluid style={{display: 'flex',justifyContent: 'center'}}>
+                <Button variant="primary"> Lagerfläche hinzufügen </Button>
+            </Container>
             
 
             

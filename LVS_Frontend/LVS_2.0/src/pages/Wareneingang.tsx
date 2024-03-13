@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {Line} from 'react-chartjs-2';
 import { Pie } from "react-chartjs-2";
 import{
@@ -22,6 +22,7 @@ import Button from 'react-bootstrap/Button';
 
 import DashboardHeader from "../assets/components/DashboardHeader";
 import styles from './styles/Wareneingang.module.css';
+import PopupForm from "../assets/components/PopupForm";
 
 
 function Wareneingang(){
@@ -69,6 +70,15 @@ function Wareneingang(){
       ]
     }
 
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+    const openPopup = () => {
+      setIsPopupOpen(true);
+    }
+    const closePopup = () => {
+      setIsPopupOpen(false);
+    }
+
     return (
         <>
             <DashboardHeader title = "Wareneingang" kpiData = {dashboardData}/>
@@ -95,12 +105,13 @@ function Wareneingang(){
 
             <div className={styles.buttonDiv}>
                         <span className={styles.buttonWrapper}>
-                            <DropdownButton id="dropdown-basic-button" title="Zeitraum auswählen">
+                            <DropdownButton bsClass ="standardButton" id="dropdown-basic-button" title="Zeitraum auswählen">
                                 <Dropdown.Item href="#/action-1">Woche</Dropdown.Item>
                                 <Dropdown.Item href="#/action-2">Monat</Dropdown.Item>
                                 <Dropdown.Item href="#/action-3">Zeitraum</Dropdown.Item>
                             </DropdownButton>
-                            <Button variant="primary">Ware hinzufügen</Button>
+                            <Button bsClass="standardButton" variant="primary" onClick={openPopup}>Ware hinzufügen</Button>
+                            {isPopupOpen && < PopupForm onClose={closePopup} />}
                         </span>
 
                 </div>

@@ -2,16 +2,73 @@
 * https://colorhunt.co/palette/b6fffa98e4ff80b3ff687eff
 */
 
+:root {
+  --white-background: #fafafa;
+  --content-panel: #e4e5f1;
+  --button: #484b6a;
+  --table-row-1: #d2d3db;
+  --table-row-2: #9394a5;
+}
+
+
+
+
 
 
 html{
   font-family:Arial, Helvetica, sans-serif;
   color: black;
-  background-color: #B6FFFA;
+  background-color: var(--white-background);
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
 }
 body{
+  background-color: var(--white-background);
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
+}
+
+
+.SideBar{
+  height: 100vh;
+  width: 100px;
+  background-color: var(--button);
+  position:fixed;
+}
+
+.SideBarList{
+  padding: 0;
+  padding-top: 3rem;
+  padding-bottom: 5rem;
+  height: auto;
+  width: 100%;
+}
+
+.SideBarList .row{
+  width: 100%;
+  height: 50px;
+  list-style-type: none;
+  margin: 0;
+  margin-bottom: 5rem;
+  display: flex;
+  justify-content: center;
+  background-color: var(--button);
+  color: white;
+  
+
+}
+
+.SideBarList .row:hover{
+  cursor: pointer;
+  /*background-color:*/
+}
+
+.SideBarList #active {
+  /*background-color: darker*/
+}
+
+.sidebarIconDiv{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
