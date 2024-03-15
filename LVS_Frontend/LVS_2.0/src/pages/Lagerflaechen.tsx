@@ -5,6 +5,8 @@ import { Button, Container } from 'react-bootstrap';
 import styles from './styles/Lagerflaechen.module.css';
 import SidebarMenu from '../assets/components/SidebarMenu';
 import DashboardHeader from '../assets/components/DashboardHeader';
+import { useState } from 'react';
+import PopupRegal from '../assets/components/PopupRegal';
 
 const headerData = {
     kpis: [
@@ -17,10 +19,20 @@ const headerData = {
 
 
 function Lagerflaechen(){
+
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+    const openPopup = () => {
+      setIsPopupOpen(true);
+    }
+    const closePopup = () => {
+      setIsPopupOpen(false);
+    }
+    
     return(
         <>
             <SidebarMenu/>
-            <div style={{padding: "0px 0px 0px 150px"}} className='wrapper'>
+            <div style={{padding: "0px 0px 0px 150px"}} className={styles.wrapper}>
                 <DashboardHeader title = "Lagerflächen" kpiData = {headerData}/>
                 <main className={styles.regalSection}>
                     <Card style={{ width: '18rem' }}>
@@ -30,12 +42,14 @@ function Lagerflaechen(){
                             <Card.Text> 500 </Card.Text>
                             <Card.Title>Auslastung:</Card.Title>
                             <Card.Text> 50% </Card.Text>
-                            <Button variant="primary"> Mehr </Button>
+                            <Button variant="primary" onClick={openPopup}> Mehr </Button>
+                            {isPopupOpen && < PopupRegal onClose={closePopup} regalName="Regal" />}
                         </Card.Body>
                     </Card>
                 </main>
                 <Container fluid style={{display: 'flex',justifyContent: 'center'}}>
-                    <Button variant="primary"> Lagerfläche hinzufügen </Button>
+                    <Button variant="primary" > Lagerfläche hinzufügen </Button>
+                    
                 </Container>
             </div>
         </>

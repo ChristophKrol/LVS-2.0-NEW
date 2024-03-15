@@ -11,3 +11,7 @@
 .regalSection{
     
 }
+
+.wrapper{
+  background-color: var(--white-background);
+}

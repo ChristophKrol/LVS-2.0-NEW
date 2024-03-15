@@ -10,7 +10,7 @@ function SidebarMenu(){
             <div className="SideBar">
                 <ul className="SideBarList">
                     <li className="row">
-                        <div className="sidebarIconDiv"> <h3> LVS </h3> </div>
+                        <div className="sidebarIconDiv"> <h3> LVS </h3> </div> 
 
                     </li>
                 {SideBarData.map((val, key) =>{

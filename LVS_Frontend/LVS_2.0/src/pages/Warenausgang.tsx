@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {Line} from 'react-chartjs-2';
 import { Pie } from "react-chartjs-2";
 import{
@@ -24,6 +24,7 @@ import DashboardHeader from "../assets/components/DashboardHeader";
 import styles from './styles/Warenausgang.module.css';
 import Footer from "../Footer";
 import SidebarMenu from "../assets/components/SidebarMenu";
+import PopupExport from "../assets/components/PopupExport";
 
 
 function Warenausgang(){
@@ -87,7 +88,22 @@ function Warenausgang(){
 
 
 
+    	
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+    const openPopup = () => {
+      setIsPopupOpen(true);
+    }
+    const closePopup = () => {
+      setIsPopupOpen(false);
+    }
+
+
+
+
     return (
+
+
       <>
         <SidebarMenu/>
         <div style={{padding: "0px 0px 0px 50px"}}>
@@ -129,7 +145,8 @@ function Warenausgang(){
                                 <Dropdown.Item href="#/action-2">Monat</Dropdown.Item>
                                 <Dropdown.Item href="#/action-3">Zeitraum</Dropdown.Item>
                             </DropdownButton>
-                            <Button variant="primary">Waren exportieren</Button>
+                            <Button bsClass="standardButton" variant="primary" onClick={openPopup}>Ware hinzufügen</Button>
+                            {isPopupOpen && < PopupExport onClose={closePopup} />}
                         </span>
 
             </div>

@@ -83,9 +83,9 @@ function Wareneingang(){
     return (
       <>
         <SidebarMenu/>
-        <div style={{padding: "0px 0px 0px 50px"}}>
+        <div style={{padding: "0px 0px 0px 50px", backgroundColor: '#fafafa'}}>
             <DashboardHeader title = "Wareneingang" kpiData = {dashboardData}/>
-            <Container>
+            <Container style={{backgroundColor: '#fafafa'}}>
               <Row>
                 <Col className="text-center">
                   <h2>Lieferungen pro Woche</h2> 
