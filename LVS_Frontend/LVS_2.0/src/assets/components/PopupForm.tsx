@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {Row, Col, Form} from 'react-bootstrap';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
@@ -7,39 +7,91 @@ import styles from './styles/PopupForm.module.css';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import { Key } from '@mui/icons-material';
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const notifySuccess = () => {
+  toast.success('🦄 Wow so easy!', {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+    transition: Bounce
+    });
+}
 
 const PopupForm = ({ onClose }) => {
-  const handleOutsideClick = (e) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  };
 
-  // Form variables
+    // Form variables
 
-  const [name, setName] = useState('');
-  const [quantity, setQuantity] = useState('');
-  const [size, setSize] = useState('');
-  const [price, setPrice] = useState('');
-  const [category, setCategory] = useState('Kategorie auswählen');
-  const [regal, setRegal] = useState('Regal auswählen');
+    const [name, setName] = useState('');
+    const [quantity, setQuantity] = useState('');
+    const [space, setspace] = useState('');
+    const [price, setPrice] = useState('');
+    const [category, setCategory] = useState('Kategorie auswählen');
+    const [categories, setCategories] = useState([]);
+    const [containerID, setContainerID] = useState('Regal auswählen');
+    const [containers, setContainers] = useState([]);
+  
+
+
+
+    
+    const handleOutsideClick = (e) => {
+      if (e.target === e.currentTarget) {
+        onClose();
+      }
+    };
+
+
+
+  
 
   const handleClick = (e) => {
     e.preventDefault();
-    const itemData = { name, price, size, category, regal};
-    console.log(itemData);
+    const itemData = { name, price, space, category, containerID};
+    console.log(JSON.stringify(itemData));
+
+    // Füge Items hinzu
 
     for (let i = 0; i < Number(quantity); i++){
-        fetch("localhost:8080/server/item/save",{
+        fetch("http://localhost:8080/server/item/save",{
           method: "POST",
           headers:{"Content-Type": "application/json"},
           body: JSON.stringify(itemData)
         }).then(() => {
-          console.log("Item added successfully")
+          notifySuccess();
+          onClose();
         });
     }
 
   }
+
+  // lade Kategorien
+  useEffect(() => {
+    fetch("http://localhost:8080/server/category/list")
+    .then(response => response.json())
+    .then((responseData) => {
+      setCategories(responseData.data.categories);
+    })
+  }, []);
+
+  // lade Container
+
+  useEffect(() => {
+    fetch("http://localhost:8080/server/container/list")
+    .then(response => response.json())
+    .then((responseData) => {
+      setContainers(responseData.data.containers);
+    })
+  }, []);
+  
+
+
 
 
   return (
@@ -56,6 +108,19 @@ const PopupForm = ({ onClose }) => {
       <div className={styles.backgroundDiv}
         onClick={handleOutsideClick}
       >
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+        transition={Bounce}
+        />
         <div className={styles.formDiv}>
           <div className={styles.closingButtonArea}> <IconButton onClick={onClose} aria-label="close"> <CloseIcon /> </IconButton> </div>
           <h2>Neue Ware erfassen</h2>
@@ -81,9 +146,9 @@ const PopupForm = ({ onClose }) => {
                 </div>
                 <div className='row '>
                   <span className={styles.inputSpan}>
-                    <input type="number" id="size" name="size" 
-                    placeholder='Größe' value={size} 
-                    onChange={(e) => setSize(e.target.value)}
+                    <input type="number" id="space" name="space" 
+                    placeholder='Größe' value={space} 
+                    onChange={(e) => setspace(e.target.value)}
                     />
                   </span>
                 </div>
@@ -104,19 +169,22 @@ const PopupForm = ({ onClose }) => {
                   onChange={(e)=>{setCategory(e.target.value)}}
                   >
                     <option>Kategorie auswählen</option>
-                    <option value="Lebensmittel">Lebensmittel</option>
-                    <option value="Elektronik">Elektronik</option>
-                    <option value="KategorieErstellen">Kategorie erstellen</option>
+                    { 
+                    categories.map(category => (
+                      <option value={category.name}>{category.name}</option>
+                    )) }
                   </Form.Select>
                 </div>
                 <div className='row btn-row'>
                   <Form.Select aria-label="Default select example"
-                  onChange={(e)=>{setRegal(e.target.value)}}
+                  onChange={(e)=>{setContainerID(e.target.value)}}
                   >
                     <option>Regal auswählen</option>
-                    <option value="Regal 1">Regal 1</option>
-                    <option value="Regal 2">Regal 2</option>
-                    <option value="Regal 3">Regal 3</option>
+                    {
+                      containers.map(container => (
+                        <option value={container.id}>{container.name}</option>
+                      ))
+                    }
                   </Form.Select>
                 </div>  
               </div>
