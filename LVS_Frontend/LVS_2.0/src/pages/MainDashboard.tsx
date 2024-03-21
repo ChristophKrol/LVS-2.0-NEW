@@ -14,6 +14,10 @@ import{
 } from 'chart.js';
 import DashboardHeader from '../assets/components/DashboardHeader';
 import { Container, Row, Col } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+import { formatISO, subDays } from 'date-fns';
+import { MoveToInboxSharp } from '@mui/icons-material';
+import Footer from '../Footer';
 
 ChartJS.register(
   LineElement,
@@ -29,11 +33,186 @@ ChartJS.register(
 
 
 function MainDashboard(){
+
+  //LineChart Data
+  const[last7Days, setLast7Days] = useState([]);
+  const[daysLabels, setDaysLabels] = useState([]);
+  const[maxValue, setMaxValue] = useState(0);
+
+  const[last7DaysImports, setLast7DaysImports] = useState([]);
+  const [last7DaysExports, setLast7DaysExports] = useState([]);
+
+  const [containers, setContainers]=  useState([]);
+  const [capacityTotal, setCapacityTotal] = useState(0);
+  const [curCapacity, setCurCapacity] = useState(0);
+  const [utilization, setUtilization] = useState(0);
+  const [categories, setCategories] = useState([]);
+  const [categoryData, setCategoryData] = useState([]);
+  const [categoryValues, setCategoryValues] = useState([]);
+  const [itemCount, setItemCount] = useState(0);
+  
+  const[importsCount, setImportsCount] = useState(0);
+  const[exportsCount, setExportsCount] = useState(0);
+  const[totalItemValue, setTotalItemValue] = useState(0);
+
+  //Get category Value
+  useEffect(() => {
+    fetch('http://localhost:8080/server/item/itemValueByCategory')
+    .then(response => response.json())
+    .then((responseData) => {
+      setCategoryValues(responseData.data.catPriceSum);
+    })
+  }, []);
+
+
+   // Item Count Per Catgeory
+  useEffect(() => {
+    fetch('http://localhost:8080/server/item/itemCountPerCategory')
+    .then(response => response.json())
+    .then((responseData) => {
+      setCategoryData(responseData.data.catGroup);
+    })
+  }, []);
+ 
+  //imports count 
+  useEffect(() => {
+    fetch('http://localhost:8080/server/itemhistory/getImports')
+    .then(response => response.json())
+    .then((responseData) => {
+      setImportsCount(responseData.data.ImportsTotal);
+      //console.log(responseData.data.ImportsTotal);
+    })
+  }, [])
+
+  // get total exports
+  useEffect(() => {
+    fetch('http://localhost:8080/server/itemhistory/getExports')
+    .then(response => response.json())
+    .then((responseData) => {
+      setExportsCount(responseData.data.countAllExportedItems);
+      //console.log(responseData.data.ImportsTotal);
+    })
+  }, []);
+  
+  
+  
+ // total item value 
+  useEffect(() => {
+    fetch('http://localhost:8080/server/item/totalValue')
+    .then(response => response.json())
+    .then((responseData) => {
+      setTotalItemValue(responseData.data.itemValue);
+    })
+  })
+
+  // Container Capacity Data
+  useEffect(() => {
+    fetch("http://localhost:8080/server/container/list")
+    .then(response => response.json())
+    .then((responseData) => {
+        const containerData = responseData.data.containers;
+      setContainers(containerData);
+      const totalCapacity = containerData.reduce((accumulator, container) => accumulator + container.maxCapacity, 0);
+      setCapacityTotal(totalCapacity);
+      const usedCapacity = containerData.reduce((accumulator, container) => accumulator + container.curCapacity, 0);
+      setCurCapacity(usedCapacity);
+      setUtilization(usedCapacity/totalCapacity * 100); 
+    })
+  }, []);
+
+
+  //LineChart Import
+  useEffect(() => {
+    const fetchData = async () => {
+        const days = [];
+        const daysLabel = [];
+        const last7DaysImportsData = [];
+        const last7DaysExportsData = [];
+
+        for (let dayCounter = 0; dayCounter < 7; dayCounter++) {
+            let day = formatISO(subDays(new Date(), dayCounter), { representation: 'complete' }).slice(0, 19);
+            let dayLabel = subDays(new Date(), dayCounter);
+            days.unshift(day);
+            daysLabel.unshift(dayLabel.toLocaleDateString('de-DE', { weekday: 'short' }));
+        }
+
+        days.unshift(formatISO(subDays(new Date(), 7), { representation: 'complete' }).slice(0, 19));
+
+        setDaysLabels(daysLabel);
+        setLast7Days(days);
+
+        //Imports
+        for (let i = 1; i < days.length; i++) {
+            let dayBefore = days[i - 1];
+            let dayAfter = days[i];
+            const response = await fetch('http://localhost:8080/server/itemhistory/getImports/' + dayBefore + '/' + dayAfter);
+            const responseData = await response.json();
+            last7DaysImportsData.push(responseData.data.getImportsByTime);
+        }
+        setLast7DaysImports(last7DaysImportsData);
+        setMaxValue(Math.max(... last7DaysImportsData, maxValue));
+    };
+
+    fetchData();
+}, [maxValue]);
+
+//LineChart Export
+useEffect(() => {
+  const fetchData = async () => {
+      const days = [];
+      const daysLabel = [];
+      const last7DaysExportsData = [];
+
+      for (let dayCounter = 0; dayCounter < 7; dayCounter++) {
+          let day = formatISO(subDays(new Date(), dayCounter), { representation: 'complete' }).slice(0, 19);
+          let dayLabel = subDays(new Date(), dayCounter);
+          days.unshift(day);
+          daysLabel.unshift(dayLabel.toLocaleDateString('de-DE', { weekday: 'short' }));
+      }
+
+      days.unshift(formatISO(subDays(new Date(), 7), { representation: 'complete' }).slice(0, 19));
+
+      setDaysLabels(daysLabel);
+      setLast7Days(days);
+
+      for (let i = 1; i < days.length; i++) {
+        let dayBefore = days[i - 1];
+        let dayAfter = days[i];
+        const response = await fetch('http://localhost:8080/server/itemhistory/getExports/' + dayBefore + '/' + dayAfter);
+        const responseData = await response.json();
+        last7DaysExportsData.push(responseData.data.countAllExportedItems);
+    }
+    setLast7DaysExports(last7DaysExportsData);
+    setMaxValue(Math.max(... last7DaysExportsData, maxValue));    
+
+    };
+
+    fetchData();
+  }, [maxValue]);
+
+   // total item count
+   useEffect(() => {
+    fetch('http://localhost:8080/server/item/list')
+    .then(response => response.json())
+    .then((responseData) => {
+      setItemCount(responseData.data.items.length);
+    })
+  })
+
+
+
+
+
+
+
+
+
+
   const data = {
-    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    labels: daysLabels,
     datasets: [{ 
       label: 'Eingänge',
-      data: [3,6,9,10,2,5],
+      data: last7DaysImports,
       backgroundColor: 'blue',
       borderColor: 'blue',
       pointBorderColor: 'blue',
@@ -41,7 +220,7 @@ function MainDashboard(){
     },
     { 
       label: 'Ausgänge',
-      data: [2,8,2,4,3,5],
+      data: last7DaysExports,
       backgroundColor: 'red',
       borderColor: 'red',
       pointBorderColor: 'red',
@@ -55,8 +234,8 @@ function MainDashboard(){
     },
     scales:{
       y: {
-        min:1,
-        max:15
+        min:0,
+        max:maxValue + 3
       }
     }
   }
@@ -65,7 +244,7 @@ function MainDashboard(){
     labels:['Auslastung', 'Leer'],
     datasets: [{
       label: 'Auslastung',
-      data: [700, 300],
+      data: [utilization, 100 - utilization],
       backgroundColor:['red','grey'],
       borderColor:['red','grey']
     }]
@@ -89,18 +268,18 @@ function MainDashboard(){
   */
   const main = {
     kpis: [
-    {name: 'Gelagerte Ware', value: '100'},
-    {name: 'Eingänge', value: '50'},
-    {name: 'Ausgänge', value: '30'},
-    {name: 'Warenwert', value: '1240.50'}
+    {name: 'Gelagerte Ware', value: itemCount},
+    {name: 'Eingänge', value: importsCount},
+    {name: 'Ausgänge', value: exportsCount},
+    {name: 'Warenwert', value: totalItemValue.toFixed(2) + '€'}
     ]
   }
 
   const warenGruppenData = {
-    labels: ['Lebensmittel', 'Elektronik', 'Haushaltsmittel'],
+    labels: categoryData.map(data => data.category),
     datasets:[
       {
-        data: [3,6,2],
+        data: categoryData.map(data => data.count),
         backgroundColor:['green', 'aqua', 'yellow']
       }
     ]
@@ -109,10 +288,10 @@ function MainDashboard(){
   const warenGruppenOptions = {};
 
   const warenGruppenValueData = {
-    labels: ['Lebensmittel', 'Elektronik', 'Haushaltsmittel'],
+    labels: categoryValues.map(categoryData => categoryData.category),
     datasets:[
       {
-        data: [3,6,2],
+        data: categoryValues.map(categoryData => categoryData.price),
         backgroundColor:['green', 'aqua', 'yellow']
       }
     ]
@@ -120,7 +299,7 @@ function MainDashboard(){
   const warenGruppenValueOptions = {};
 
   return(
-    <div style={{padding: "0px 50px 0px 50px"}} >
+    <div style={{padding: "0px 0px 0px 50px"}} >
       <DashboardHeader title="Dashboard" kpiData={main}/>
       
       <div className={styles.diagramDiv}>
@@ -139,7 +318,7 @@ function MainDashboard(){
       
       <section className={styles.warenDaten}>
         <h1>Warendaten</h1>
-        <Container fluid>
+        <Container fluid className={styles.pieChartContainer}>
           <Row className={styles.warenGruppenRow}>
             <Col className='text-center'>
               <h2> Warenkategorien </h2>
@@ -151,7 +330,7 @@ function MainDashboard(){
             <Col className='text-center'>
               <h2> Wertmäßiger Anteil </h2>
               <div className={styles.piechartDiv}>
-                <Pie data={warenGruppenData} options={warenGruppenOptions}></Pie>
+                <Pie data={warenGruppenValueData} options={warenGruppenValueOptions}></Pie>
               </div>
             </Col>
 
@@ -172,7 +351,7 @@ function MainDashboard(){
 
       </section>
 
-      
+      <Footer/>
     
     </div>
   )

@@ -56,7 +56,8 @@ body{
 .buttonDiv{
     display: flex;
     justify-content: center;
-    background-color: #B6FFFA;
+    background-color: var(--white-background);
+    padding-bottom: 3rem;
     
 }
 

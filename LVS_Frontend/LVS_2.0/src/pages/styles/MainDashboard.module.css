@@ -5,6 +5,7 @@
     --button: #484b6a;
     --table-row-1: #d2d3db;
     --table-row-2: #9394a5;
+    
   }
 
 
@@ -64,13 +65,17 @@ span{
 }
 
 .lineChart{
-    width: 1200px;
-    height: 500px;
+    width: 1000px;
+    height: 300px;
     display: flex;
     justify-content: center;
     background-color: var(--white-background);
 
 
+}
+
+.pieChartContainer{
+    padding-top: 2rem;
 }
 
 
@@ -93,7 +98,8 @@ span{
 
 
 .warenDaten{
-    margin-top: 170px;
+    padding-top: 1rem;
+    background-color: var(--white-background);
 }
 
 .warenGruppenRow{

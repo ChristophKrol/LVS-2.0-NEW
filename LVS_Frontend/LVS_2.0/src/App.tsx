@@ -16,8 +16,7 @@ function App() {
       <>
         <SidebarMenu/>
         <MainDashboard/>
-        <Footer/>
-        
+       
       </>
 
       

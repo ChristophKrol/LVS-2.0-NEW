@@ -26,6 +26,7 @@ import PopupForm from "../assets/components/PopupForm";
 import SidebarMenu from "../assets/components/SidebarMenu";
 
 import {formatISO, subDays} from 'date-fns';
+import Footer from "../Footer";
 
 
 
@@ -41,6 +42,7 @@ function Wareneingang(){
   //für LineChart
   const[last7Days, setLast7Days] = useState([]);
   const[daysLabels, setDaysLabels] = useState([]);
+  const[maxValue, setMaxValue] = useState(0);
   const[last7DaysImports, setLast7DaysImports] = useState([]);
 
   //FETCH KPIs
@@ -107,10 +109,10 @@ function Wareneingang(){
 
   //Import-Verlauf
   useEffect(() => {
-    const last7DaysImportsData = [];
     const fetchData = async () => {
         const days = [];
         const daysLabel = [];
+        const last7DaysImportsData = [];
 
         for (let dayCounter = 0; dayCounter < 7; dayCounter++) {
             let day = formatISO(subDays(new Date(), dayCounter), { representation: 'complete' }).slice(0, 19);
@@ -124,24 +126,20 @@ function Wareneingang(){
         setDaysLabels(daysLabel);
         setLast7Days(days);
 
-       
-
         for (let i = 1; i < days.length; i++) {
             let dayBefore = days[i - 1];
             let dayAfter = days[i];
-            await fetch('http://localhost:8080/server/itemhistory/getImports/' + dayBefore + '/' + dayAfter)
-                .then(response => response.json())
-                .then(responseData => last7DaysImportsData.push(responseData.data.getImportsByTime))
-                //.then(() => console.log(last7DaysImports));
+            const response = await fetch('http://localhost:8080/server/itemhistory/getImports/' + dayBefore + '/' + dayAfter);
+            const responseData = await response.json();
+            last7DaysImportsData.push(responseData.data.getImportsByTime);
         }
-        //console.log(last7DaysImportsData);
+
+        setLast7DaysImports(last7DaysImportsData);
+        setMaxValue(Math.max(... last7DaysImportsData));
     };
 
     fetchData();
-    setLast7DaysImports(last7DaysImportsData);
-    console.log('ARRAY: ' + last7DaysImportsData);
-    
-  }, []);
+}, []);
 
 
 
@@ -167,7 +165,7 @@ function Wareneingang(){
         scales:{
           y: {
             min:0,
-            max: 30
+            max: maxValue + 3
           }
         }
     }
@@ -188,7 +186,7 @@ function Wareneingang(){
         {name: 'Lieferungen heute', value: importsToday},
         {name: 'Lieferungen gesamt', value: totalImports},
         {name: 'Lieferungen diese Woche', value: weeklyImports},
-        {name: 'Importierter Gesamtwert', value: totalImportValue},
+        {name: 'Importierter Gesamtwert', value: totalImportValue.toFixed(2)},
       ]
     }
 
@@ -238,8 +236,10 @@ function Wareneingang(){
                         </span>
 
                 </div>
+                <Footer/>
             
         </div>
+        
 
       </>
         

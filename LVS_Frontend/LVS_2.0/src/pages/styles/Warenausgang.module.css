@@ -15,6 +15,22 @@ h1{
 body{
     background-color: #B6FFFA;
 }
+
+.main{
+    background-color: var(--white-background)!important;
+    
+    margin-right: 0;
+    padding: 0 0 0 0 ;
+    margin-left: 70px;
+   
+
+
+}
+
+.mainSection{
+    background-color: #fafafa !important;
+    padding: 0px 0px 0px 50px;
+}
 .dataWrapper{
     display: flex;
     justify-content: space-around;
@@ -56,8 +72,9 @@ body{
 .buttonDiv{
     display: flex;
     justify-content: center;
-    background-color: #B6FFFA;
-    margin-top: 10px;
+    background-color: var(--white-background);
+    padding-top: 2rem;
+    padding-bottom: 3rem;
     
 }
 

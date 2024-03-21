@@ -11,7 +11,7 @@ import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const notifySuccess = () => {
-  toast.success('🦄 Wow so easy!', {
+  toast.success('Ware erfasst', {
     position: "top-right",
     autoClose: 5000,
     hideProgressBar: true,
@@ -51,7 +51,7 @@ const PopupForm = ({ onClose }) => {
 
   
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
     const itemData = { name, price, space, category, containerID};
     console.log(JSON.stringify(itemData));
@@ -59,15 +59,19 @@ const PopupForm = ({ onClose }) => {
     // Füge Items hinzu
 
     for (let i = 0; i < Number(quantity); i++){
-        fetch("http://localhost:8080/server/item/save",{
+
+        await fetch("http://localhost:8080/server/item/save",{
           method: "POST",
           headers:{"Content-Type": "application/json"},
           body: JSON.stringify(itemData)
-        }).then(() => {
-          notifySuccess();
-          onClose();
         });
     }
+    notifySuccess();
+    setTimeout(()=> {
+        //onClose();
+        window.location.reload();
+
+    }, 1000);
 
   }
 
@@ -122,7 +126,11 @@ const PopupForm = ({ onClose }) => {
         transition={Bounce}
         />
         <div className={styles.formDiv}>
-          <div className={styles.closingButtonArea}> <IconButton onClick={onClose} aria-label="close"> <CloseIcon /> </IconButton> </div>
+          <div className={styles.closingButtonArea}> 
+            <IconButton onClick={onClose} aria-label="close"> 
+              <CloseIcon /> 
+            </IconButton> 
+            </div>
           <h2>Neue Ware erfassen</h2>
           <form>
             <Row>
