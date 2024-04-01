@@ -37,6 +37,8 @@
 <img width="1436" alt="Bildschirmfoto 2024-04-01 um 14 15 31" src="https://github.com/ChristophKrol/LVS-2.0-NEW/assets/92592573/652f8b26-5e71-4a14-afe3-a5734265b2af">
 <p> Über den 'Mehr' Button kann man sich weitere Infomrationen zu einer Lagerfläche anzeigen lassen. </p>
 <img width="804" alt="Bildschirmfoto 2024-04-01 um 14 18 01" src="https://github.com/ChristophKrol/LVS-2.0-NEW/assets/92592573/5786b339-4809-4149-b85e-342c97476fc8">
+<p> Bei der Übersicht unten befindet sich ein Button, mit dem man eine neue Lagerfläche hinzufügen kann. Ein Popup öffnet sich, in welchem die notwenidgen Daten eingegeben werden können. </p>
+<img width="803" alt="Bildschirmfoto 2024-04-01 um 14 20 40" src="https://github.com/ChristophKrol/LVS-2.0-NEW/assets/92592573/0bc7843c-e931-48a4-8319-d12efe478d7b">
 
 
 
