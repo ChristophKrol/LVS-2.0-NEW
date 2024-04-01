@@ -23,8 +23,12 @@
 </ol>
 
 <h2> Nutzung des LVS </h2>
+
 <h3> SideMenu und Dashboard </h3>
 <p> Über das Sidemenu kommt man zu verschiedenen Bereichen der App. Das Home-Dashboard zeigt alle allegmeinen Informationen zu Waren, Import und Export. </p>
 <img width="1436" alt="Bildschirmfoto 2024-04-01 um 14 02 09" src="https://github.com/ChristophKrol/LVS-2.0-NEW/assets/92592573/b85036d6-bcbc-4f1c-84e7-87a5b8a3834d">
 <p> Außerdem wird die Lagerauslastung angezeigt und Informationen zu den Kategorien </p>
 <img width="1340" alt="Bildschirmfoto 2024-04-01 um 14 04 47" src="https://github.com/ChristophKrol/LVS-2.0-NEW/assets/92592573/2a62ac41-b989-45db-ba2d-6d08fdb32a3d">
+
+<h3> Lagerflächen </h3>
+<p> Über das </p><img width="100" alt="Bildschirmfoto 2024-04-01 um 14 06 47" src="https://github.com/ChristophKrol/LVS-2.0-NEW/assets/92592573/2854ec77-228b-4056-b74b-cb960eb8e912">
