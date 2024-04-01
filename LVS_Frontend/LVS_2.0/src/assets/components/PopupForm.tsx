@@ -9,6 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import { Key } from '@mui/icons-material';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CreateCategoryPopup from './CreateCategoryPopup';
 
 const notifySuccess = () => {
   toast.success('Ware erfasst', {
@@ -36,6 +37,7 @@ const PopupForm = ({ onClose }) => {
     const [categories, setCategories] = useState([]);
     const [containerID, setContainerID] = useState('Regal auswählen');
     const [containers, setContainers] = useState([]);
+    
   
 
 
@@ -175,8 +177,12 @@ const PopupForm = ({ onClose }) => {
                 <div className='row btn-row'>
                   <Form.Select aria-label="Default select example" 
                   onChange={(e)=>{setCategory(e.target.value)}}
+
                   >
                     <option>Kategorie auswählen</option>
+                    <option value='CREATE'>Kategorie erstellen...</option>
+                    
+                    
                     { 
                     categories.map(category => (
                       <option value={category.name}>{category.name}</option>
@@ -200,10 +206,13 @@ const PopupForm = ({ onClose }) => {
             <footer className={styles.formFooter}>
               <Button type="submit" onClick={handleClick}>Ware hinzufügen</Button>
             </footer>
+            
+            
 
           </form> 
         </div>
       </div>
+     
     </>  
   );
 };

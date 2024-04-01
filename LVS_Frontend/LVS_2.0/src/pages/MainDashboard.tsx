@@ -199,12 +199,14 @@ useEffect(() => {
     })
   })
 
-
-
-
-
-
-
+   // Load Categories
+   useEffect(() => {
+    fetch("http://localhost:8080/server/category/list")
+    .then(response => response.json())
+    .then((responseData) => {
+      setCategories(responseData.data.categories);
+    })
+  }, []);
 
 
 
@@ -280,7 +282,7 @@ useEffect(() => {
     datasets:[
       {
         data: categoryData.map(data => data.count),
-        backgroundColor:['green', 'aqua', 'yellow']
+        backgroundColor: categories.map(category => category.color)
       }
     ]
   };
@@ -292,7 +294,7 @@ useEffect(() => {
     datasets:[
       {
         data: categoryValues.map(categoryData => categoryData.price),
-        backgroundColor:['green', 'aqua', 'yellow']
+        backgroundColor: categories.map(category => category.color)
       }
     ]
   }

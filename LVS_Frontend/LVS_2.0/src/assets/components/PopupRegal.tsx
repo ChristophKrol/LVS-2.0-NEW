@@ -17,6 +17,7 @@ const PopupRegal = (props) => {
     }
   };
 
+  const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("Alle"); 
   const [itemCount, setItemCount] = useState([]);
   const [name, setName] = useState("");
@@ -41,18 +42,28 @@ const PopupRegal = (props) => {
     })
   }, []);
 
+  // Load ItemCount per Category
   useEffect(() => {
     fetch('http://localhost:8080/server/item/itemCountPerCategory/container/' + id)
     .then(response => response.json())
-    .then(responseData => setItemCount(responseData.data.catGroup));
-  })
+    .then(responseData => {setItemCount(responseData.data.catGroup); console.log(responseData.data.catGroup);});
+  }, [])
+
+    // Load Categories
+    useEffect(() => {
+      fetch("http://localhost:8080/server/category/list")
+      .then(response => response.json())
+      .then((responseData) => {
+        setCategories(responseData.data.categories);
+      })
+    }, []);
 
   const categoryData = {
     labels: itemCount.map(category => category.name),
     datasets:[
       {
         data: itemCount.map(category => category.count),
-        backgroundColor:['green', 'aqua', 'yellow']
+        backgroundColor:categories.map(category => category.color)
       }
     ]
   };

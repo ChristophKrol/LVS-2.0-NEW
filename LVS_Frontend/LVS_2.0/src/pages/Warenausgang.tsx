@@ -40,6 +40,16 @@ function Warenausgang(){
   const[last7Days, setLast7Days] = useState([]);
   const[maxValue, setMaxValue] = useState(0);
   const [last7DaysExports, setLast7DaysExports] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+  //fetch categories for colors
+  useEffect(() => {
+    fetch("http://localhost:8080/server/category/list")
+    .then(response => response.json())
+    .then((responseData) => {
+      setCategories(responseData.data.categories);
+    })
+  }, []);
 
 
   // total exports today
@@ -178,7 +188,7 @@ function Warenausgang(){
       datasets:[
         {
           data: categoryExportCount.map(categoryExports => categoryExports.value),
-          backgroundColor:['green', 'aqua', 'yellow']
+          backgroundColor: categories.map(category => category.color)
         }
       ]
     };
@@ -189,7 +199,7 @@ function Warenausgang(){
         datasets:[
           {
             data: categoryValues.map(categoryValue => categoryValue.value),
-            backgroundColor:['green', 'aqua', 'yellow']
+            backgroundColor: categories.map(category => category.color)
           }
         ]
     };
@@ -261,11 +271,7 @@ function Warenausgang(){
 
             <div className={styles.buttonDiv}>
                         <span className={styles.buttonWrapper}>
-                            <DropdownButton id="dropdown-basic-button" title="Zeitraum auswählen">
-                                <Dropdown.Item href="#/action-1">Woche</Dropdown.Item>
-                                <Dropdown.Item href="#/action-2">Monat</Dropdown.Item>
-                                <Dropdown.Item href="#/action-3">Zeitraum</Dropdown.Item>
-                            </DropdownButton>
+                            
                             <Button bsClass="standardButton" variant="primary" onClick={openPopup}>Waren exportieren</Button>
                             {isPopupOpen && < PopupExport onClose={closePopup} />}
                         </span>

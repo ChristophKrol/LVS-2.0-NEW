@@ -77,7 +77,7 @@ const PopupCreateRegal = ({onClose}) => {
             
             </form>
             <footer className={styles.formFooter}>
-              <Button type="submit" onClick={submitForm}>Ware hinzufügen</Button>
+              <Button type="submit" onClick={submitForm}>Lager hinzufügen</Button>
             </footer>
             
             

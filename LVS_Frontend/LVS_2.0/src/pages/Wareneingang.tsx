@@ -27,6 +27,7 @@ import SidebarMenu from "../assets/components/SidebarMenu";
 
 import {formatISO, subDays} from 'date-fns';
 import Footer from "../Footer";
+import CreateCategoryPopup from "../assets/components/CreateCategoryPopup";
 
 
 
@@ -38,6 +39,7 @@ function Wareneingang(){
 
   // Für PieChart
   const [categorieData, setCategorieData] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   //für LineChart
   const[last7Days, setLast7Days] = useState([]);
@@ -45,7 +47,26 @@ function Wareneingang(){
   const[maxValue, setMaxValue] = useState(0);
   const[last7DaysImports, setLast7DaysImports] = useState([]);
 
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isCreateCategoryOpen, setIsCreateCategoryOpen] = useState(false);
+
+    const openCreateCategory = () => {
+      setIsCreateCategoryOpen(true);
+    }
+    const closeCreateCategory = () => {
+      setIsCreateCategoryOpen(false);
+    }
+
+  const openPopup = () => {
+    setIsPopupOpen(true);
+  }
+  const closePopup = () => {
+    setIsPopupOpen(false);
+  }
+
   //FETCH KPIs
+
+
 
   //Alle imports
   useEffect(() => {
@@ -106,6 +127,15 @@ function Wareneingang(){
       setCategorieData(responseData.data.countImportedItemsPerCategory);
     })
   }, []);
+
+     // Load Categories
+     useEffect(() => {
+      fetch("http://localhost:8080/server/category/list")
+      .then(response => response.json())
+      .then((responseData) => {
+        setCategories(responseData.data.categories);
+      })
+    }, []);
 
   //Import-Verlauf
   useEffect(() => {
@@ -174,7 +204,7 @@ function Wareneingang(){
       datasets:[
         {
           data: categorieData.map(categoryData => categoryData.Imports),
-          backgroundColor:['green', 'aqua', 'yellow']
+          backgroundColor: categories.map(category => category.color)
         }
       ]
     };
@@ -190,14 +220,7 @@ function Wareneingang(){
       ]
     }
 
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-    const openPopup = () => {
-      setIsPopupOpen(true);
-    }
-    const closePopup = () => {
-      setIsPopupOpen(false);
-    }
 
     return (
       <>
@@ -226,13 +249,10 @@ function Wareneingang(){
 
             <div className={styles.buttonDiv}>
                         <span className={styles.buttonWrapper}>
-                            <DropdownButton bsClass ="standardButton" id="dropdown-basic-button" title="Zeitraum auswählen">
-                                <Dropdown.Item href="#/action-1">Woche</Dropdown.Item>
-                                <Dropdown.Item href="#/action-2">Monat</Dropdown.Item>
-                                <Dropdown.Item href="#/action-3">Zeitraum</Dropdown.Item>
-                            </DropdownButton>
-                            <Button bsClass="standardButton" variant="primary" onClick={openPopup}>Ware hinzufügen</Button>
-                            {isPopupOpen && < PopupForm onClose={closePopup} />}
+                          <Button bsClass="standardButton" variant="primary" onClick={openCreateCategory}>Kategorie hinzufügen</Button>
+                          {isCreateCategoryOpen && < CreateCategoryPopup onClose={closeCreateCategory}/>}
+                          <Button bsClass="standardButton" variant="primary" onClick={openPopup}>Ware hinzufügen</Button>
+                          {isPopupOpen && < PopupForm onClose={closePopup} />}
                         </span>
 
                 </div>
