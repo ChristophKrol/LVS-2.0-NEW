@@ -34,4 +34,5 @@
 <h3> Lagerflächen </h3>
 <p> Unter dem Haus-Icon befindet sich ein 'Warehouse'-Icon. Dort gelangt man zu den Lagerflächen. Es wird die Anzahl der Lagerflächen und die Gesamtkapazität angezeigt. Kapazitäten haben in der App keine festgelegte Einheit. Unten befinden sihc alle Lagerflächen. Lagerfläche ist ein abstraktes Konstrukt. Es können Regale, Container oder Ähnliches sein. Im Backend heißen sie Container und sie können Ware (Items) aufbewahren. In den einzelnen Cards wird der Name, die Gesamtkapazität und die Auslastung angezeigt </p>
 
+<img width="1436" alt="Bildschirmfoto 2024-04-01 um 14 15 31" src="https://github.com/ChristophKrol/LVS-2.0-NEW/assets/92592573/652f8b26-5e71-4a14-afe3-a5734265b2af">
 
