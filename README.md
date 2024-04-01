@@ -48,4 +48,11 @@
 <p> Über 'Ware hinzufügen' kann mittels eines Popups Ware erfasst werden: </p>
 <img width="804" alt="Bildschirmfoto 2024-04-01 um 14 24 44" src="https://github.com/ChristophKrol/LVS-2.0-NEW/assets/92592573/5342b53a-6b02-4bf3-93a4-0aa1916349b4">
 
+<h3> Warenausgang </h3>
+<p> Unter dem Wareneingang im Seitenmenü befindet sich der Warenausgang. Auch hier werden relevante Kennzahlen und Visualisierungen zum Export angezeigt. Unten gibt es einen Button, mit dem man Ware exportieren kann. </p>
+<img width="1440" alt="Bildschirmfoto 2024-04-01 um 14 30 38" src="https://github.com/ChristophKrol/LVS-2.0-NEW/assets/92592573/5a721816-e21f-423d-a6c1-8adea8df96e7">
+<img width="1440" alt="Bildschirmfoto 2024-04-01 um 14 31 00" src="https://github.com/ChristophKrol/LVS-2.0-NEW/assets/92592573/bee32d0b-4679-4761-aa8b-6df14a305d3b">
+
+
+
 
