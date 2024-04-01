@@ -41,4 +41,11 @@
 <img width="803" alt="Bildschirmfoto 2024-04-01 um 14 20 40" src="https://github.com/ChristophKrol/LVS-2.0-NEW/assets/92592573/0bc7843c-e931-48a4-8319-d12efe478d7b">
 
 
+<h3> Wareneingang </h3>
+<p> Unter dem Lagerflächen-Punkt im Seitenmenü befindet sich der Wareneingang. Es werden relevante Kennzahlen und Visualisierungen zum Import angezeigt. Unten kann eine Kategorie mithilfe eines Buttons hinzugefügt werden und man kann Waren hinzufügen. </p>
+
+<img width="1440" alt="Bildschirmfoto 2024-04-01 um 14 24 13" src="https://github.com/ChristophKrol/LVS-2.0-NEW/assets/92592573/63d4cd38-7cb2-4d15-b22a-1448d5a04290">
+<p> Über 'Ware hinzufügen' kann mittels eines Popups Ware erfasst werden: </p>
+<img width="804" alt="Bildschirmfoto 2024-04-01 um 14 24 44" src="https://github.com/ChristophKrol/LVS-2.0-NEW/assets/92592573/5342b53a-6b02-4bf3-93a4-0aa1916349b4">
+
 
