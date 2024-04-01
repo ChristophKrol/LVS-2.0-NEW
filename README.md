@@ -14,6 +14,7 @@
   <li> Optional: IntelliJ als IDE, um das Backend ausführen zu können </li>
   <li> Optional: Visual Studio Code für das Frontend </li>
 </ul>
+<h4> Setup </h4>
 <ol>
   <li> Backend mithilfe von z.B. IntelliJ starten. Dazu SoftwareApplication.java starten im Paket de.lagerverwaltung.software </li>
   <li> Im Ordner 'LVS_Frontend' den Ordner 'LVS_2.0' öffnen</li>
