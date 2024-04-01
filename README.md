@@ -11,6 +11,7 @@
 <ul>
   <li> NodeJS </li>
   <li> Java 17 </li>
+  <li> MySQL </li>
   <li> Optional: IntelliJ als IDE, um das Backend ausführen zu können </li>
   <li> Optional: Visual Studio Code für das Frontend </li>
 </ul>
@@ -32,4 +33,5 @@
 
 <h3> Lagerflächen </h3>
 <p> Unter dem Haus-Icon befindet sich ein 'Warehouse'-Icon. Dort gelangt man zu den Lagerflächen. Es wird die Anzahl der Lagerflächen und die Gesamtkapazität angezeigt. Kapazitäten haben in der App keine festgelegte Einheit. Unten befinden sihc alle Lagerflächen. Lagerfläche ist ein abstraktes Konstrukt. Es können Regale, Container oder Ähnliches sein. Im Backend heißen sie Container und sie können Ware (Items) aufbewahren. In den einzelnen Cards wird der Name, die Gesamtkapazität und die Auslastung angezeigt </p>
+
 
