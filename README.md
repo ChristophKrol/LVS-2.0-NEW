@@ -14,10 +14,16 @@
   <li> Optional: IntelliJ als IDE, um das Backend ausführen zu können </li>
   <li> Optional: Visual Studio Code für das Frontend </li>
 </ul>
-<h4> Setup </h4>
+<h3> Setup </h3>
 <ol>
   <li> Backend mithilfe von z.B. IntelliJ starten. Dazu SoftwareApplication.java starten im Paket de.lagerverwaltung.software </li>
   <li> Im Ordner 'LVS_Frontend' den Ordner 'LVS_2.0' öffnen</li>
   <li> In diesem Ordner das Terminal öffnen und folgenden Befehl ausführen: 'npm install vite @vitejs/plugin-react'. Vite wird neu installiert und wird benötigt, um die App zu starten </li>
   <li> Danach den Befehl 'npm run dev' ausführen </li>
 </ol>
+
+<h2> Nutzung des LVS </h2>
+<h3> SideMenu und Dashboard </h3>
+<p> Über das Sidemenu kommt man zu verschiedenen Bereichen der App. Das Home-Dashboard zeigt alle allegmeinen Informationen zu Waren, Import und Export. Außerdem wird die Lagerauslastung angezeigt </p>
+<img width="1436" alt="Bildschirmfoto 2024-04-01 um 14 02 09" src="https://github.com/ChristophKrol/LVS-2.0-NEW/assets/92592573/b85036d6-bcbc-4f1c-84e7-87a5b8a3834d">
+<img width="1340" alt="Bildschirmfoto 2024-04-01 um 14 04 47" src="https://github.com/ChristophKrol/LVS-2.0-NEW/assets/92592573/2a62ac41-b989-45db-ba2d-6d08fdb32a3d">
