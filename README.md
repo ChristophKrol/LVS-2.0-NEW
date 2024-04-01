@@ -52,6 +52,9 @@
 <p> Unter dem Wareneingang im Seitenmenü befindet sich der Warenausgang. Auch hier werden relevante Kennzahlen und Visualisierungen zum Export angezeigt. Unten gibt es einen Button, mit dem man Ware exportieren kann. </p>
 <img width="1440" alt="Bildschirmfoto 2024-04-01 um 14 30 38" src="https://github.com/ChristophKrol/LVS-2.0-NEW/assets/92592573/5a721816-e21f-423d-a6c1-8adea8df96e7">
 <img width="1440" alt="Bildschirmfoto 2024-04-01 um 14 31 00" src="https://github.com/ChristophKrol/LVS-2.0-NEW/assets/92592573/bee32d0b-4679-4761-aa8b-6df14a305d3b">
+<p> Beim Drücken des 'Waren exportieren' Buttons öffnet sich ein Fenster, dass eine Tabelle mit eingelagerter Ware anzeigt. Über die Filterfunktion kann man nach Kategorien und Lagerflächen filtern. Die zu exportierende Ware wird angetickt und mit dem Button 'Waren exportieren' exportiert, bzw. aus der Datenbank gelöscht im Hintergrund. </p>
+<img width="802" alt="Bildschirmfoto 2024-04-01 um 14 38 39" src="https://github.com/ChristophKrol/LVS-2.0-NEW/assets/92592573/b4fdaa9a-fa04-4102-8314-34bae7038c58">
+
 
 
 
